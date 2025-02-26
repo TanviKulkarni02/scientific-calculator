@@ -2,46 +2,65 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'tanvikulkarni33/scientific-calculator:latest'
+        // Docker Hub credentials (store these in Jenkins credentials)
+        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+        DOCKER_IMAGE = "naman1301/scientific-calculator:latest"
     }
 
     stages {
+        // Stage 1: Pull code from GitHub
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/TanviKulkarni02/scientific-calculator.git'
+                git branch: 'main', url: 'https://github.com/TanviKulkarni02/scientific-calculator.git'
             }
         }
 
-        stage('Build') {
+        // Stage 2: Run unit tests
+        stage('Run Unit Tests') {
             steps {
-                sh 'gradle build'
+                sh 'python3 -m unittest test_calculator.py'
             }
         }
 
-        stage('Test') {
+        // Stage 3: Build Docker image
+        stage('Build Docker Image') {
             steps {
-                sh 'gradle test'
+                script {
+                    docker.build("${DOCKER_IMAGE}")
+                }
             }
         }
 
-        stage('Containerize') {
+        // Stage 4: Push Docker image to Docker Hub
+        stage('Push Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        sh 'docker -D push tanvikulkarni33/scientific-calculator:latest'
+                    }
+                }
             }
         }
 
-	stage('Push to Docker Hub') {
-	   steps {
-		  withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/']) {
-	          sh 'docker push $DOCKER_IMAGE'
+        // Stage 5: Deploy using Ansible
+        stage('Deploy with Ansible') {
+            steps {
+                ansiblePlaybook(
+                    playbook: 'ansible/deploy.yml',
+                    inventory: 'ansible/inventory',
+                    credentialsId: 'ansible-ssh-credentials' // Store SSH credentials in Jenkins
+                )
+            }
         }
     }
-}
 
-        stage('Deploy using Ansible') {
-            steps {
-                sh 'ansible-playbook -i inventory deploy.yml'
-            }
+    post {
+        // Actions to perform after the pipeline completes
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for details.'
         }
     }
 }
