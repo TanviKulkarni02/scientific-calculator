@@ -1,6 +1,5 @@
 import math
 
-#helloo this is meeeeee
 
 
 def square_root(x):
