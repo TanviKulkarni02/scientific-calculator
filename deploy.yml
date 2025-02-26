@@ -1,0 +1,7 @@
+- hosts: all
+  tasks:
+    - name: Pull Docker Image
+      command: docker pull your-dockerhub-username/scientific-calculator
+
+    - name: Run Docker Container
+      command: docker run -d --name calculator your-dockerhub-username/scientific-calculator
