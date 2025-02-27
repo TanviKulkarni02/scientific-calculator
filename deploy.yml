@@ -62,5 +62,4 @@
         ports:
           - "8081:8080"
 
-//Updated deploy.yml: Added 'become: yes' for privilege escalation, improved Docker installation logic, and ensured proper image deployment.
 
