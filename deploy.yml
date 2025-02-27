@@ -1,11 +1,5 @@
 - hosts: local
   tasks:
-    - name: Ensure Docker is installed
-      apt:
-        name: docker.io
-        state: present
-      become: true
-
     - name: Pull Docker Image
       docker_image:
         name: tanvikulkarni33/scientific-calculator
