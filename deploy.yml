@@ -23,5 +23,6 @@
         name: scientific-calculator
         state: absent
 
-    -shell: |
+    - name: Run Docker Container
+      shell: |
         docker run -it -d --name scientific-calculator -p 5000:8080 tanvikulkarni33/scientific-calculator:latest
