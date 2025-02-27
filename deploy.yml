@@ -1,13 +1,20 @@
 - hosts: local
+  become: yes  # Ensure commands run as root
   tasks:
+    - name: Install Docker SDK for Python (if not installed)
+      pip:
+        name: docker
+        state: present
+
     - name: Pull Docker Image
-      docker_image:
+      community.docker.docker_image:
         name: tanvikulkarni33/scientific-calculator
         source: pull
 
     - name: Run Calculator Container
-      docker_container:
+      community.docker.docker_container:
         name: scientific-calculator
         image: tanvikulkarni33/scientific-calculator:latest
         state: started
         restart_policy: always
+
