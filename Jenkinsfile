@@ -52,7 +52,6 @@ pipeline {
                 ansiblePlaybook(
                     playbook: 'deploy.yml',
                     inventory: 'inventory',
-                    credentialsId: 'ansible-ssh-credentials' // Store SSH credentials in Jenkins
                 )
             }
         }
