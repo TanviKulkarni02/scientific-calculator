@@ -23,12 +23,5 @@
         name: scientific-calculator
         state: absent
 
-    - name: Run the container
-      community.docker.docker_container:
-        name: scientific-calculator
-        image: tanvikulkarni33/scientific-calculator:latest
-        state: started
-        restart_policy: always
-        recreate: yes
-        ports:
-          - "8080:3000"  # Change this based on your application port
+    -shell: |
+        docker run -it -d --name scientific-calculator -p 5000:8080 tanvikulkarni33/scientific-calculator:latest
