@@ -43,8 +43,8 @@
         }
 
 //Resolved Ansible playbook execution failure in Jenkins pipeline
-// corrected the directory structure in Deploy using Ansible code
-//Fixed Jenkinsfile error
+// corrected the directory structure for stage:5
+
  
        // Stage 5: Deploy using Ansible
         stage('Deploy with Ansible') {
