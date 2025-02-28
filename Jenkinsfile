@@ -9,6 +9,7 @@ pipeline {
 
     stages {
         // Stage 1: Pull code from GitHub
+
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/TanviKulkarni02/scientific-calculator.git'
@@ -16,6 +17,7 @@ pipeline {
         }
 
         // Stage 2: Run unit tests
+
         stage('Run Unit Tests') {
             steps {
                 sh 'python3 -m unittest test_calculator.py'
@@ -23,6 +25,7 @@ pipeline {
         }
 
         // Stage 3: Build Docker image
+
         stage('Build Docker Image') {
             steps {
                 script {
@@ -32,6 +35,7 @@ pipeline {
         }
 
         // Stage 4: Push Docker image to Docker Hub
+
         stage('Push Docker Image') {
             steps {
                 script {
@@ -47,6 +51,7 @@ pipeline {
 
  
        // Stage 5: Deploy using Ansible
+
         stage('Deploy with Ansible') {
             steps {
                 ansiblePlaybook(
