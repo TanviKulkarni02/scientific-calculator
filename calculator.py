@@ -3,7 +3,7 @@ import math
 
 def square_root(x):
     if x < 0:
-        raise ValueError("Square root of a negative number is not allowed")
+        raise ValueError("Square root of a negative number is not allowed !!!")
     return math.sqrt(x)
 
 def factorial(x):
