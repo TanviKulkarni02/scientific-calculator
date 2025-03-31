@@ -44,7 +44,7 @@ if __name__ == "__main__":
                 exponent = float(input("Enter exponent: "))
                 print("Result:", power(base, exponent))
             elif choice == '5':
-                print("Goodbye!!!  Exiting...")
+                print("Goodbye!!  Exiting...")
                 break
             else:
                 print("Invalid choice! Please enter a valid option.")
