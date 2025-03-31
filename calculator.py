@@ -27,7 +27,7 @@ if __name__ == "__main__":
         print("2. Factorial (x!)")
         print("3. Natural Logarithm (ln(x))")
         print("4. Power Function (x^b)")
-        print("5. Exit")
+        print("5. Goodbye! Exit")
         choice = input("Enter your choice: ")
 
         try:
