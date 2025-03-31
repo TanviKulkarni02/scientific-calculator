@@ -1,6 +1,5 @@
 import math
 
-abc
 
 def square_root(x):
     if x < 0:
